@@ -1,0 +1,11 @@
+# Normalize repository-authored text while preserving byte-pinned source inputs.
+* text=auto eol=lf
+
+data/tse/snippet_index.csv -text
+data/tse/snippets/tse-011.java -text
+data/tse/snippets/tse-012.java -text
+data/tse/snippets/tse-013.java -text
+data/tse/snippets/tse-014.java -text
+data/tse/snippets/tse-015.java -text
+data/tse/snippets/tse-032.java -text
+data/tse/snippets/tse-039.java -text

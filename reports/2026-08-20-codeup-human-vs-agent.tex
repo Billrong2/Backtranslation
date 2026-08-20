@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[T1]{fontenc}
+\title{CODE-UP Human-versus-Agent Revision and Round-Trip Study}
+\date{August 20, 2026}
+\begin{document}
+\maketitle
+\section{Design}
+We compare paired revisions for 915 CODE-UP review requests. The human arm is the recorded same-file post-review revision. The agent arm is independently generated from only the review request and pre-review context. DeepSeek V4 Flash performs generation and backtranslation through separate Codex instances; DeepSeek V4 Pro extracts and judges intent.
+
+\section{Overall paired results}
+Human is the positive class for ROC--AUC. Separation is $\max(\mathrm{AUC},1-\mathrm{AUC})$.
+\small
+\begin{longtable}{p{5.2cm}rrrrrr}
+\toprule
+Measure & Human & Agent & $\Delta$ & $p$ & AUC & Separation \\
+\midrule
+\endhead
+Round-trip CodeBERT similarity & 0.9950 & 0.9946 & 0.0004 & 0.0067 & 0.4705 & 0.5295 \\
+Round-trip BLEU & 0.8820 & 0.8804 & 0.0016 & 0.5927 & 0.4912 & 0.5088 \\
+Round-trip ROUGE-L F1 & 0.9225 & 0.9150 & 0.0075 & 0.5536 & 0.4988 & 0.5012 \\
+Review-intent fidelity, original & 0.2958 & 0.3331 & -0.0373 & 0.0077 & 0.4675 & 0.5325 \\
+Review-intent fidelity, round-trip & 0.2817 & 0.3246 & -0.0429 & 0.0023 & 0.4646 & 0.5354 \\
+Number of code intents, original & 4.4481 & 4.5617 & -0.1137 & 0.4325 & 0.5124 & 0.5124 \\
+Cyclomatic-complexity proxy, original & 2.4929 & 3.0492 & -0.5563 & 1.63e-10 & 0.4432 & 0.5568 \\
+Code-smell/antipattern count, original & 0.7311 & 1.1508 & -0.4197 & 2.06e-27 & 0.3895 & 0.6105 \\
+Token count, original & 112.9563 & 195.1891 & -82.2328 & 2.58e-27 & 0.3886 & 0.6114 \\
+Pre-review$\rightarrow$revision CodeBERT similarity & 0.9632 & 0.9935 & -0.0303 & 5.73e-120 & 0.0959 & 0.9041 \\
+Pre-review$\rightarrow$revision BLEU & 0.2902 & 0.8219 & -0.5317 & 9.89e-144 & 0.0677 & 0.9323 \\
+Pre-review$\rightarrow$revision ROUGE-L F1 & 0.4360 & 0.8904 & -0.4544 & 8.29e-144 & 0.0563 & 0.9437 \\
+Intent-count change after round trip & -0.1803 & -0.1989 & 0.0186 & 0.5968 & 0.4942 & 0.5058 \\
+CCN-proxy change after round trip & -0.0481 & -0.0929 & 0.0448 & 0.4726 & 0.4999 & 0.5001 \\
+Smell-count change after round trip & 0.0874 & 0.0940 & -0.0066 & 0.6093 & 0.4934 & 0.5066 \\
+Intent-fidelity loss after round trip & 0.0141 & 0.0085 & 0.0055 & 0.5472 & 0.5040 & 0.5040 \\
+Strict-preservation loss after round trip & 0.0270 & 0.0171 & 0.0100 & 0.6875 & 0.5078 & 0.5078 \\
+Changed-intent-rate change after round trip & 0.0009 & 0.0194 & -0.0185 & 0.2457 & 0.4942 & 0.5058 \\
+Lost-intent-rate change after round trip & -0.0279 & -0.0364 & 0.0085 & 0.4812 & 0.5037 & 0.5037 \\
+Added-intent-rate change after round trip & 0.0095 & 0.0031 & 0.0064 & 0.7592 & 0.5071 & 0.5071 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Direct similarity of human and agent revisions}
+\begin{tabular}{lrrr}
+\toprule
+Similarity & Mean & Median & 95\% CI of mean \\
+\midrule
+CodeBERT & 0.9640 & 0.9762 & [0.9616, 0.9664] \\
+BLEU & 0.3206 & 0.2653 & [0.3050, 0.3362] \\
+ROUGE-1 F1 & 0.5126 & 0.5292 & [0.4971, 0.5281] \\
+ROUGE-2 F1 & 0.4400 & 0.4211 & [0.4241, 0.4559] \\
+ROUGE-L F1 & 0.4535 & 0.4359 & [0.4378, 0.4691] \\
+\bottomrule
+\end{tabular}
+
+\section{Main findings}
+Round-trip reconstruction is highly similar for both arms: mean CodeBERT is 0.9950 for human code and 0.9946 for agent code. Mean intent-fidelity loss after round trip is only 0.0141 and 0.0085, respectively, so this cohort does not show large intent drift caused by backtranslation. Absolute review-intent fidelity is low in both original extracted fragments (0.2958 human; 0.3331 agent), but that is a different quantity. Agent revisions are longer, have higher CCN proxy and smell counts, and remain substantially closer to the pre-review fragment; the latter may indicate conservative under-editing or extraction-granularity effects rather than superior revision quality.
+
+\section{Interpretation}
+CodeBERT, BLEU, and ROUGE measure code similarity. The Pro intent measures separately test whether the prior review request remains implemented before and after round-trip translation. High code similarity is not by itself evidence of intent preservation.
+
+\section{Limitations}
+Review comments are pre-revision specifications rather than issue reports predating the original code. CCN is a fragment-level proxy. Smells use identical transparent heuristics rather than whole-project static analyzers. The study excludes sampled reviews without a recoverable nonempty same-file revision. The agent never receives the human revision. Human and agent revision fragments can differ in extraction granularity. Reported p-values are exploratory and unadjusted across metrics; AUC is descriptive separation, not held-out predictive performance.
+
+\end{document}

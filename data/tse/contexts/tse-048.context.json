@@ -1,0 +1,31 @@
+{
+  "dataset_signature": "weka.gui.beans.ClassifierPerformanceEvaluatorCustomizer.addButtons()",
+  "enclosing_type_depth": 0,
+  "enclosing_type_header": "public class ClassifierPerformanceEvaluatorCustomizer extends JPanel implements\n    BeanCustomizer, CustomizerCloseRequester, CustomizerClosingListener {",
+  "import_selection": "all_source_file_imports_in_source_order",
+  "imports": [
+    "import java.awt.BorderLayout;",
+    "import java.awt.GridLayout;",
+    "import java.awt.Window;",
+    "import java.awt.event.ActionEvent;",
+    "import java.awt.event.ActionListener;",
+    "import java.beans.PropertyChangeListener;",
+    "import java.beans.PropertyChangeSupport;",
+    "import java.util.ArrayList;",
+    "import java.util.List;",
+    "import javax.swing.JButton;",
+    "import javax.swing.JPanel;",
+    "import weka.gui.EvaluationMetricSelectionDialog;",
+    "import weka.gui.PropertySheetPanel;"
+  ],
+  "member_stub_selection": "uniformly_excluded_no_symbol_resolution_claim",
+  "method_source": "snippets/tse-048.java",
+  "method_source_sha256": "5332e0bee84f4dba824efc900c2d704927b85ca2c27c47bc7d2357e8da70fdcf",
+  "package_declaration": "/*\n *   This program is free software: you can redistribute it and/or modify\n *   it under the terms of the GNU General Public License as published by\n *   the Free Software Foundation, either version 3 of the License, or\n *   (at your option) any later version.\n *\n *   This program is distributed in the hope that it will be useful,\n *   but WITHOUT ANY WARRANTY; without even the implied warranty of\n *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n *   GNU General Public License for more details.\n *\n *   You should have received a copy of the GNU General Public License\n *   along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n\n/*\n *    ClassifierPerformanceEvaluatorCustomizer.java\n *    Copyright (C) 2011-2012 University of Waikato, Hamilton, New Zealand\n *\n */\n\npackage weka.gui.beans;",
+  "policy": "Exact package declaration; every exact source-file import in source order; the exact enclosing type header through its opening brace; and the separately stored exact selected declaration/body. Member stubs are uniformly excluded: no fields, initializers, sibling methods, invoked source, comments outside the declaration, outcomes, or verification questions.",
+  "policy_status": "proposal_for_protocol_freeze",
+  "retained_import_count": 13,
+  "schema_version": "tse-java-context-v1",
+  "snippet_id": "tse-048",
+  "source_file_import_count": 13
+}

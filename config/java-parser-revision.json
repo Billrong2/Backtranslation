@@ -1,0 +1,20 @@
+{
+  "schema_version": "backtranslation.java-parser-artifacts.v1",
+  "runtime": {
+    "package": "tree-sitter",
+    "version": "0.25.2",
+    "repository": "https://github.com/tree-sitter/py-tree-sitter",
+    "revision": "e2a5b21449c30c6a4fb49a55567a4699c3271f10",
+    "cp311_linux_x86_64_wheel_sha256": "3e65ae456ad0d210ee71a89ee112ac7e72e6c2e5aac1b95846ecc7afa68a194c"
+  },
+  "java_grammar": {
+    "package": "tree-sitter-java",
+    "version": "0.23.5",
+    "repository": "https://github.com/tree-sitter/tree-sitter-java",
+    "revision": "94703d5a6bed02b98e438d7cad1136c01a60ba2c",
+    "cp39_abi3_linux_x86_64_wheel_sha256": "370b204b9500b847f6d0c5ad584045831cee69e9a3e4d878535d39e4a7e4c4f1",
+    "language_abi": 14,
+    "node_kind_count": 321,
+    "parse_state_count": 1385
+  }
+}

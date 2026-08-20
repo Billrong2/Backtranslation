@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/backtranslation/regeneration-v1.schema.json",
+  "title": "Regenerated Java method",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "language",
+    "code"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "regenerated-code-v1"
+    },
+    "language": {
+      "const": "java"
+    },
+    "code": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        {"pattern": "^\\S"},
+        {"pattern": "\\S$"},
+        {"pattern": "^[^\\u0000]*$"}
+      ]
+    }
+  }
+}

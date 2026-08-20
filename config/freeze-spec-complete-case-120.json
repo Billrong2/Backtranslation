@@ -1,0 +1,134 @@
+{
+  "artifact_scan_roots": [
+    "artifacts/runs/b0cf3c04fdf53ef0df2d233637b98ee17086f0c8ce6314b3d9b10a7cb1d16996/run-0",
+    "artifacts/runs/b0cf3c04fdf53ef0df2d233637b98ee17086f0c8ce6314b3d9b10a7cb1d16996/run-1",
+    "artifacts/runs/b0cf3c04fdf53ef0df2d233637b98ee17086f0c8ce6314b3d9b10a7cb1d16996/run-2"
+  ],
+  "exclude_patterns": [
+    "**/__pycache__/**",
+    "**/*.pyc",
+    ".pytest_cache/**"
+  ],
+  "include_files": [
+    "GOAL.md",
+    "GOAL.complete-case-120.frozen.md",
+    "artifacts/provenance/legacy-attempt-inventory-v0.5.json",
+    "artifacts/provenance/v0.5-static/protocol/freeze-manifest-v1.json",
+    "artifacts/provenance/v0.5-static/protocol/freeze-record.jsonl",
+    "config/codebert-base-revision.json",
+    "config/freeze-spec-complete-case-120.json",
+    "config/java-parser-revision.json",
+    "config/ruby-java-adaptation.json",
+    "config/runtime-lock.json",
+    "data/study_cases.jsonl",
+    "data/tse/README.md",
+    "data/tse/snippet_index.csv",
+    "data/tse/source_manifest.jsonl",
+    "docs/fidelity-scorers.md",
+    "docs/ruby-audit.md",
+    "docs/ruby-scorer.md",
+    "protocol/PROTOCOL.complete-case-120.frozen.md",
+    "pyproject.toml",
+    "schemas/regeneration-v1.schema.json",
+    "src/backtranslation/__init__.py",
+    "src/backtranslation/artifacts.py",
+    "src/backtranslation/cases.py",
+    "src/backtranslation/complete_case_120.py",
+    "src/backtranslation/directions.py",
+    "src/backtranslation/execution.py",
+    "src/backtranslation/freeze.py",
+    "src/backtranslation/java_validation.py",
+    "src/backtranslation/outcomes.py",
+    "src/backtranslation/quota.py",
+    "src/backtranslation/quota_execution.py",
+    "src/backtranslation/ruby_scoring.py",
+    "src/backtranslation/scoring.py",
+    "src/backtranslation/statistics.py",
+    "tests/test_complete_case_120.py",
+    "tests/test_ruby_scoring.py",
+    "tests/test_scoring.py",
+    "tests/test_statistics.py",
+    "tools/analyze_complete_case_120.py",
+    "tools/freeze_protocol.py"
+  ],
+  "include_trees": [
+    "data/tse/contexts",
+    "data/tse/licenses",
+    "data/tse/snippets"
+  ],
+  "marker_policy": "standard-v1",
+  "pin_inventory": {
+    "inputs": [
+      {
+        "bytes": 524171,
+        "id": "tse-expanded-rq1",
+        "pin_type": "file",
+        "redistribution_status": "do-not-redistribute unless the authors provide an explicit license",
+        "sha256": "77704e6a39ded74a4542d61aaf737432950905fe9b886a2dd822132f75395ca1",
+        "source": "https://dibt-research.unimol.it/report/understandability-tse/files/RQ1/understandability.csv",
+        "status": "pinned"
+      },
+      {
+        "id": "legacy-validity-inventory",
+        "manifest_path": "artifacts/provenance/legacy-attempt-inventory-v0.5.json",
+        "manifest_sha256": "4172483486daabe839e7d74b1efa7def98d037099e6a398936ff5c287729ad4a",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "tse-source-context-manifest",
+        "manifest_path": "data/tse/source_manifest.jsonl",
+        "manifest_sha256": "7240f172fd3cf24720948ce4929cf94d3f1eb6a050279b3e42f0a89d025b2f63",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "java-parser-lexer",
+        "manifest_path": "config/java-parser-revision.json",
+        "manifest_sha256": "565c06470d546bb24891bb7188443decd3ff13e084f0d8d1d3ec724ff0dfb437",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "ruby-java-adaptation",
+        "manifest_path": "config/ruby-java-adaptation.json",
+        "manifest_sha256": "3b66f5a47bd1bf8681a7a2e97807a0e4916aa0bd2fa1fae14c3168593bb8714c",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "codebert-base",
+        "manifest_path": "config/codebert-base-revision.json",
+        "manifest_sha256": "8f345d01312ac0e1642859d5f88ac4c36cb4a15b4952440d284c2eb42690810e",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "rouge-bleu-runtime",
+        "manifest_path": "config/runtime-lock.json",
+        "manifest_sha256": "739513e10ee1508f0851a07eee2fb3098ab253fe3566623221a3baf703fe950b",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "python-runtime-environment",
+        "manifest_path": "config/runtime-lock.json",
+        "manifest_sha256": "739513e10ee1508f0851a07eee2fb3098ab253fe3566623221a3baf703fe950b",
+        "pin_type": "manifest",
+        "status": "pinned"
+      }
+    ],
+    "required_input_ids": [
+      "tse-expanded-rq1",
+      "legacy-validity-inventory",
+      "tse-source-context-manifest",
+      "java-parser-lexer",
+      "ruby-java-adaptation",
+      "codebert-base",
+      "rouge-bleu-runtime",
+      "python-runtime-environment"
+    ]
+  },
+  "protocol_path": "protocol/PROTOCOL.complete-case-120.frozen.md",
+  "schema_version": "backtranslation.freeze-spec.v1"
+}

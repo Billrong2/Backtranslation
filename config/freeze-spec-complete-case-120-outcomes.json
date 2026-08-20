@@ -1,0 +1,72 @@
+{
+  "artifact_scan_roots": [
+    "artifacts/complete-case-120/63be0044a56484c6021e8d995d28a94994c3338ab4afa1e911535e38692ab5ac"
+  ],
+  "exclude_patterns": ["**/__pycache__/**", "**/*.pyc", ".pytest_cache/**"],
+  "include_files": [
+    "GOAL.complete-case-120.frozen.md",
+    "artifacts/complete-case-120/63be0044a56484c6021e8d995d28a94994c3338ab4afa1e911535e38692ab5ac/scores.json",
+    "config/freeze-spec-complete-case-120-outcomes.json",
+    "config/runtime-lock.json",
+    "data/tse/source_manifest.jsonl",
+    "protocol/PROTOCOL.complete-case-120.frozen.md",
+    "protocol/PROTOCOL.complete-case-120.outcome-amendment.frozen.md",
+    "pyproject.toml",
+    "src/backtranslation/__init__.py",
+    "src/backtranslation/artifacts.py",
+    "src/backtranslation/complete_case_120.py",
+    "src/backtranslation/execution.py",
+    "src/backtranslation/freeze.py",
+    "src/backtranslation/outcomes.py",
+    "src/backtranslation/statistics.py",
+    "tests/test_complete_case_120.py",
+    "tests/test_outcomes.py",
+    "tests/test_statistics.py",
+    "tools/analyze_complete_case_120_outcomes.py",
+    "tools/freeze_protocol.py",
+    "tools/render_complete_case_120_report.py"
+  ],
+  "include_trees": [],
+  "marker_policy": "standard-v1",
+  "pin_inventory": {
+    "inputs": [
+      {
+        "bytes": 524171,
+        "id": "tse-expanded-rq1",
+        "pin_type": "file",
+        "sha256": "77704e6a39ded74a4542d61aaf737432950905fe9b886a2dd822132f75395ca1",
+        "source": "https://dibt-research.unimol.it/report/understandability-tse/files/RQ1/understandability.csv",
+        "status": "pinned"
+      },
+      {
+        "id": "complete-case-120-score-bundle",
+        "manifest_path": "artifacts/complete-case-120/63be0044a56484c6021e8d995d28a94994c3338ab4afa1e911535e38692ab5ac/scores.json",
+        "manifest_sha256": "7025cb1278cf40fff004770e74eb8ed26dfc927b451be5fcf9a6f169d065668c",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "tse-source-context-manifest",
+        "manifest_path": "data/tse/source_manifest.jsonl",
+        "manifest_sha256": "7240f172fd3cf24720948ce4929cf94d3f1eb6a050279b3e42f0a89d025b2f63",
+        "pin_type": "manifest",
+        "status": "pinned"
+      },
+      {
+        "id": "python-runtime-environment",
+        "manifest_path": "config/runtime-lock.json",
+        "manifest_sha256": "739513e10ee1508f0851a07eee2fb3098ab253fe3566623221a3baf703fe950b",
+        "pin_type": "manifest",
+        "status": "pinned"
+      }
+    ],
+    "required_input_ids": [
+      "tse-expanded-rq1",
+      "complete-case-120-score-bundle",
+      "tse-source-context-manifest",
+      "python-runtime-environment"
+    ]
+  },
+  "protocol_path": "protocol/PROTOCOL.complete-case-120.outcome-amendment.frozen.md",
+  "schema_version": "backtranslation.freeze-spec.v1"
+}

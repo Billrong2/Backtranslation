@@ -1,0 +1,75 @@
+{
+  "dataset": "Scalabrino et al., Automatically Assessing Code Understandability, expanded TSE version",
+  "dataset_page": "https://dibt-research.unimol.it/report/understandability-tse/",
+  "manifest_sha256": "7240f172fd3cf24720948ce4929cf94d3f1eb6a050279b3e42f0a89d025b2f63",
+  "paper": "https://sscalabrino.github.io/files/2019/TSE2019AutomaticallyAssessingCode.pdf",
+  "raw_assets": {
+    "RQ2.zip": {
+      "sha256": "4dff1f0da9937a900255e9dc4f2e1cc57f615f6dc510c77c9d211840996804a2",
+      "url": "https://dibt-research.unimol.it/report/understandability-tse/files/RQ2/RQ2.zip"
+    },
+    "systems.csv": {
+      "sha256": "912a204ac80e72a0302aa52f6647a775df3ebe2d894d73ceb796109fdca7bb26",
+      "url": "https://dibt-research.unimol.it/report/understandability-tse/files/systems.csv"
+    },
+    "understandability.csv": {
+      "sha256": "77704e6a39ded74a4542d61aaf737432950905fe9b886a2dd822132f75395ca1",
+      "url": "https://dibt-research.unimol.it/report/understandability-tse/files/RQ1/understandability.csv"
+    },
+    "verification_questions.txt": {
+      "sha256": "43e8ce494dc171717a2e13e1526a0bc915d92020941a5a835fc43d873210dc56",
+      "url": "https://dibt-research.unimol.it/report/understandability-tse/files/verification_questions.txt"
+    }
+  },
+  "raw_license_status": "unresolved_no_license_statement_found_on_authoritative_download_page",
+  "raw_retention_policy": "hash_pinned_cache_only_not_copied_into_artifact",
+  "schema_version": "tse-provenance-v1",
+  "snippet_index_sha256": "25daebfe5c7b5aee4ecf385669e580e48f93172e415c89b8a5662c607e511a48",
+  "source_snippet_retention": "retained_under_each_upstream_open_source_license_with_notices",
+  "validated_structure": {
+    "AU_domain": [
+      0,
+      0.3333333333333333,
+      0.6666666666666666,
+      1
+    ],
+    "PBU_domain": [
+      0,
+      1
+    ],
+    "all_nonzero_missing_counts": {
+      "Identifiers/comments (area)": 140,
+      "Keywords/comments (area)": 140,
+      "Literals/comments (area)": 140,
+      "Literals/numbers (area)": 250,
+      "Literals/strings (area)": 141,
+      "Numbers/comments (area)": 140,
+      "Operators/comments (area)": 140,
+      "Operators/literals (area)": 409,
+      "Operators/numbers (area)": 250,
+      "Operators/strings (area)": 141,
+      "Strings/comments (area)": 140,
+      "Strings/numbers (area)": 250,
+      "TNPU": 135
+    },
+    "evaluation_rows": 444,
+    "evaluations_per_snippet": {
+      "8": 6,
+      "9": 44
+    },
+    "participants": 63,
+    "participants_by_group": {
+      "bachelor student": 38,
+      "master student": 9,
+      "phd student": 3,
+      "professional developer": 13
+    },
+    "primary_fields_missing": {
+      "AU": 0,
+      "LOC": 0,
+      "PBU": 0
+    },
+    "snippets": 50,
+    "systems": 10
+  }
+}

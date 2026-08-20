@@ -1,0 +1,23 @@
+{
+  "dataset_signature": "org.antlr.v4.runtime.misc.Array2DHashSet.removeFast(T)",
+  "enclosing_type_depth": 0,
+  "enclosing_type_header": "public class Array2DHashSet<T> implements Set<T> {",
+  "import_selection": "all_source_file_imports_in_source_order",
+  "imports": [
+    "import java.util.Arrays;",
+    "import java.util.Collection;",
+    "import java.util.Iterator;",
+    "import java.util.NoSuchElementException;",
+    "import java.util.Set;"
+  ],
+  "member_stub_selection": "uniformly_excluded_no_symbol_resolution_claim",
+  "method_source": "snippets/tse-019.java",
+  "method_source_sha256": "80e1b2bb77331823e326a6d5d88f8a6181137534da1d6564cf0953c095870476",
+  "package_declaration": "/*\n * Copyright (c) 2012-2016 The ANTLR Project. All rights reserved.\n * Use of this file is governed by the BSD 3-clause license that\n * can be found in the LICENSE.txt file in the project root.\n */\n\npackage org.antlr.v4.runtime.misc;",
+  "policy": "Exact package declaration; every exact source-file import in source order; the exact enclosing type header through its opening brace; and the separately stored exact selected declaration/body. Member stubs are uniformly excluded: no fields, initializers, sibling methods, invoked source, comments outside the declaration, outcomes, or verification questions.",
+  "policy_status": "proposal_for_protocol_freeze",
+  "retained_import_count": 5,
+  "schema_version": "tse-java-context-v1",
+  "snippet_id": "tse-019",
+  "source_file_import_count": 5
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/backtranslation/extraction-input-v1.schema.json",
+  "title": "Code-to-directions request data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type_context",
+    "code_1"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "extraction-input-v1"
+    },
+    "type_context": {
+      "$ref": "type-context-v1.schema.json"
+    },
+    "code_1": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  }
+}

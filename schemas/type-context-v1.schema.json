@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/backtranslation/type-context-v1.schema.json",
+  "title": "Mechanically required Java type context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "language",
+    "java_language_level",
+    "package_declaration",
+    "imports",
+    "enclosing_type_headers",
+    "referenced_fields",
+    "referenced_callables",
+    "referenced_enum_constants"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "type-context-v1"
+    },
+    "language": {
+      "const": "java"
+    },
+    "java_language_level": {
+      "type": ["string", "null"]
+    },
+    "package_declaration": {
+      "type": ["string", "null"]
+    },
+    "imports": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "enclosing_type_headers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "referenced_fields": {
+      "$ref": "#/$defs/declarations"
+    },
+    "referenced_callables": {
+      "$ref": "#/$defs/declarations"
+    },
+    "referenced_enum_constants": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "declarations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

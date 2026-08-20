@@ -1,0 +1,14 @@
+model = "deepseek-v4-flash"
+model_provider = "deepseek_human_agent_flash"
+approval_policy = "never"
+sandbox_mode = "read-only"
+web_search = "disabled"
+
+[model_providers.deepseek_human_agent_flash]
+name = "DeepSeek V4 Flash via loopback Responses adapter"
+base_url = "http://127.0.0.1:8770/v1"
+env_key = "CODEUP_PROXY_TOKEN"
+wire_api = "responses"
+request_max_retries = 2
+stream_max_retries = 2
+stream_idle_timeout_ms = 360000

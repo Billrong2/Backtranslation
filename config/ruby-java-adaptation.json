@@ -1,0 +1,169 @@
+{
+  "schema_version": "backtranslation.ruby-java-adaptation.v1",
+  "name": "RUBY-Java paper-specification adaptation",
+  "definition": "ruby-java-paper-specification-adaptation-v1",
+  "status": "independent_java_adaptation_not_authors_implementation",
+  "primary_source": {
+    "title": "Does BLEU Score Work for Code Migration?",
+    "authors": [
+      "Ngoc Tran",
+      "Hieu Tran",
+      "Son Nguyen",
+      "Hoan Nguyen",
+      "Tien N. Nguyen"
+    ],
+    "venue": "ICPC 2019",
+    "doi": "10.1109/ICPC.2019.00034",
+    "arxiv": "https://arxiv.org/abs/1906.04903",
+    "retrieved_pdf_sha256": "f9046a54278741014858b3334eafb7fee64b75ce34b40c0203d9679b88e3ce0f",
+    "retrieved_source_archive_sha256": "8d48df12d73f9448880ab250b16bcb6b236b5139ccd67b9b815884c14a3d06c2"
+  },
+  "author_artifact_audit": {
+    "experiment_repository": {
+      "url": "https://github.com/doubleblindBleu/studyBLEU",
+      "revision": "bc2ecd64890327cdd6d85c5ad9914551d7c225b9",
+      "declared_license": null
+    },
+    "writing_data_repository": {
+      "url": "https://github.com/miketran238/BleuScoreStudy",
+      "revision": "e5dad6979bd0b5c7a2d8f1a3bea8ce75bbaffef1",
+      "declared_license": null
+    },
+    "authenticated_scorer_source_recovered": false
+  },
+  "orientation": {
+    "reference": "Code 1",
+    "candidate": "Code 2",
+    "range": [0.0, 1.0],
+    "direction": "higher_is_more_similar"
+  },
+  "selection": {
+    "order": ["grs", "trs_adaptation", "sts"],
+    "implemented_rule": "select trs_adaptation when both exact ordered AST projections are available; otherwise select sts",
+    "retain_all_computable_tiers": true,
+    "retain_higher_tier_unavailability_reasons": true
+  },
+  "grs": {
+    "definition": "ruby-paper-grs-unavailable-no-pdg-exas-v1",
+    "available": false,
+    "reason": "no_authenticated_java_pdg_exas_pipeline",
+    "ast_or_cfg_proxy_permitted": false
+  },
+  "trs_adaptation": {
+    "definition": "ruby-style-trs-java-ordered-ted-no-move-v1",
+    "representation": "tree-sitter-java-named-ast-enriched-terminals-v1",
+    "algorithm": "zhang-shasha-ordered-unit-cost-no-move-v1",
+    "tree_root": "sole callable declaration inside the synthetic validation wrapper; wrapper excluded",
+    "named_nodes": "retained recursively in source order",
+    "comments": "omitted",
+    "label": "canonical JSON of incoming field, node type, exact named-terminal spelling, and direct anonymous terminals with syntax position, type, and exact spelling",
+    "availability": "parse succeeds; exactly one callable; no sibling member; no enclosing type; body present; no ERROR or MISSING node; declaration mismatch alone does not make the tier unavailable",
+    "costs": {
+      "insert_node": 1,
+      "delete_node_promote_children": 1,
+      "relabel_equal": 0,
+      "relabel_different": 1,
+      "move": null
+    },
+    "normalization": "1 - distance / (reference_node_count + candidate_node_count)"
+  },
+  "sts": {
+    "definition": "ruby-paper-sts-token-levenshtein-v1",
+    "tokens": "pinned exact case-sensitive normalized Java lexer token arrays",
+    "costs": {
+      "insert_token": 1,
+      "delete_token": 1,
+      "substitute_equal": 0,
+      "substitute_different": 1
+    },
+    "normalization": "1 - distance / max(reference_token_count, candidate_token_count)",
+    "one_empty_stream_score": 0.0,
+    "both_empty_streams": "ruby_sts_both_token_streams_empty"
+  },
+  "runtime": {
+    "java_parser_manifest_path": "config/java-parser-revision.json",
+    "java_parser_manifest_sha256": "565c06470d546bb24891bb7188443decd3ff13e084f0d8d1d3ec724ff0dfb437",
+    "tree_sitter_version": "0.25.2",
+    "tree_sitter_java_version": "0.23.5",
+    "tree_sitter_java_revision": "94703d5a6bed02b98e438d7cad1136c01a60ba2c"
+  },
+  "artifacts": {
+    "success_filename": "ruby-fidelity.json",
+    "success_schema": "backtranslation.ruby-fidelity.v1",
+    "failure_filename": "ruby-fidelity.failure.json",
+    "failure_schema": "backtranslation.ruby-fidelity-failure.v1",
+    "write_once": true,
+    "freeze_and_code_hash_bound": true
+  },
+  "fixtures": {
+    "sts_distance_two": {
+      "distance": 2,
+      "reference_token_count": 7,
+      "candidate_token_count": 6,
+      "score": 0.7142857142857143
+    },
+    "sts_nonempty_no_overlap": {
+      "reference_token_count": 2,
+      "candidate_token_count": 2,
+      "distance": 2,
+      "score": 0.0
+    },
+    "ordered_tree_relabel": {
+      "distance": 1,
+      "reference_node_count": 4,
+      "candidate_node_count": 4,
+      "score": 0.875
+    },
+    "ordered_tree_child_reversal_no_move": {
+      "distance": 2,
+      "reference_node_count": 3,
+      "candidate_node_count": 3,
+      "score": 0.6666666666666666
+    },
+    "java_literal_replacement": {
+      "distance": 1,
+      "reference_node_count": 12,
+      "candidate_node_count": 12,
+      "score": 0.9583333333333334
+    },
+    "canonical_code1_identity": {
+      "study_case_count": 50,
+      "study_cases_sha256": "1e5cbb7e406264802fb12d9708b7af04da5b4e701f3b7d95c65a0643a2445685",
+      "selected_tier": "trs_adaptation",
+      "score": 1.0
+    }
+  },
+  "implementation_files": [
+    {
+      "path": "src/backtranslation/ruby_scoring.py",
+      "bytes": 23899,
+      "sha256": "2b8feeaa4b67c2b4162ec0a9c43e58872a640aa0365b966d9a7397e7d1dace2a"
+    },
+    {
+      "path": "src/backtranslation/java_validation.py",
+      "bytes": 26485,
+      "sha256": "c35ca20d0519cc74f245ec2c8e576479f03098de7c97e6c2765cf8ae1b5921eb"
+    },
+    {
+      "path": "src/backtranslation/scoring.py",
+      "bytes": 26836,
+      "sha256": "ed9bc4de0b44ba67fed0cf55fae3194aee197b81e29116e2b3d625623765fb1b"
+    },
+    {
+      "path": "tools/score_ruby.py",
+      "bytes": 6682,
+      "sha256": "a5686d5c95bce74aedfdf52f68a3786d33588eb36d1fb99421dc5904b878d479"
+    },
+    {
+      "path": "docs/ruby-audit.md",
+      "bytes": 4502,
+      "sha256": "b5e058c10e81bedc1dd16d70e8c7f19ea0798f0d23458e6bc06ec686cde06ee1"
+    },
+    {
+      "path": "docs/ruby-scorer.md",
+      "bytes": 6263,
+      "sha256": "dee489a26c4a9b3c5c4c281d846f33851d8863675ab7a2dd0e6bc468a8b2a663"
+    }
+  ],
+  "construct_limit": "unvalidated transfer from C# code-migration output comparison to Java-to-NL-to-Java fidelity; not behavioral equivalence, understandability, difficulty, or complexity"
+}

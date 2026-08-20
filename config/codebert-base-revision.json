@@ -1,0 +1,65 @@
+{
+  "schema_version": "backtranslation.codebert-artifacts.v1",
+  "model_id": "microsoft/codebert-base",
+  "revision": "3b0952feddeffad0063f274080e3c23d75e7eb39",
+  "source": "https://huggingface.co/microsoft/codebert-base/tree/3b0952feddeffad0063f274080e3c23d75e7eb39",
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 498,
+      "sha256": "742474d6148a061fa975dadc09ce93725fa9673c55421ed316ef75532cc6b7aa"
+    },
+    {
+      "path": "merges.txt",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+    },
+    {
+      "path": "pytorch_model.bin",
+      "bytes": 498627950,
+      "sha256": "28b61fd8fa069f6bc966f4cb9572a4026ab2a784fca8fb224020d91b744e32d6"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 150,
+      "sha256": "7638f5bbbe86ef6d604ef28ad3647dc690d6d117c81c0d63e885416be8da1150"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 25,
+      "sha256": "994f46754c5bf4014f1aa92d34b1374319c3a6b3f702105cd5b742beaecd18ce"
+    },
+    {
+      "path": "vocab.json",
+      "bytes": 898822,
+      "sha256": "06b4d46c8e752d410213d9548eb27a54db70fda0319b6271fb8d59dead5e1cab"
+    }
+  ],
+  "runtime": {
+    "python": "3.11",
+    "torch_dependency_pin": "2.9.1",
+    "torch_runtime": "2.9.1+cpu",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2",
+    "device": "cpu",
+    "transformer_output_dtype": "float32",
+    "pooling_dtype": "float64",
+    "cpu_threads": 1,
+    "deterministic_algorithms": true,
+    "float32_matmul_precision": "highest"
+  },
+  "reference_fixture": {
+    "reference_tokens": [
+      "int", "increment", "(", "int", "value", ")", "{", "return",
+      "value", "+", "1", ";", "}"
+    ],
+    "candidate_tokens": [
+      "int", "increment", "(", "int", "value", ")", "{", "return",
+      "value", "+", "2", ";", "}"
+    ],
+    "reference_content_subtokens": 13,
+    "candidate_content_subtokens": 13,
+    "cosine_similarity": 0.998540899304726,
+    "absolute_tolerance": 0.000001
+  }
+}

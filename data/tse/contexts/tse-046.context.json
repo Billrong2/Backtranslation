@@ -1,0 +1,33 @@
+{
+  "dataset_signature": "weka.estimators.CheckEstimator.printAttributeSummary(int,int)",
+  "enclosing_type_depth": 0,
+  "enclosing_type_header": "public class CheckEstimator implements OptionHandler, RevisionHandler {",
+  "import_selection": "all_source_file_imports_in_source_order",
+  "imports": [
+    "import java.util.ArrayList;",
+    "import java.util.Collections;",
+    "import java.util.Enumeration;",
+    "import java.util.Random;",
+    "import java.util.Vector;",
+    "import weka.core.Attribute;",
+    "import weka.core.Instance;",
+    "import weka.core.Instances;",
+    "import weka.core.Option;",
+    "import weka.core.OptionHandler;",
+    "import weka.core.RevisionHandler;",
+    "import weka.core.RevisionUtils;",
+    "import weka.core.TestInstances;",
+    "import weka.core.Utils;",
+    "import weka.core.WeightedInstancesHandler;"
+  ],
+  "member_stub_selection": "uniformly_excluded_no_symbol_resolution_claim",
+  "method_source": "snippets/tse-046.java",
+  "method_source_sha256": "fcadf15e9c6490f75ccf221e44ee41e311b6ba4335aeb05792c5ea07b93b7116",
+  "package_declaration": "/*\n *   This program is free software: you can redistribute it and/or modify\n *   it under the terms of the GNU General Public License as published by\n *   the Free Software Foundation, either version 3 of the License, or\n *   (at your option) any later version.\n *\n *   This program is distributed in the hope that it will be useful,\n *   but WITHOUT ANY WARRANTY; without even the implied warranty of\n *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n *   GNU General Public License for more details.\n *\n *   You should have received a copy of the GNU General Public License\n *   along with this program.  If not, see <http://www.gnu.org/licenses/>.\n */\n\n/*\n *    CheckEstimator.java\n *    Copyright (C) 1999-2012 University of Waikato, Hamilton, New Zealand\n *\n */\n\npackage weka.estimators;",
+  "policy": "Exact package declaration; every exact source-file import in source order; the exact enclosing type header through its opening brace; and the separately stored exact selected declaration/body. Member stubs are uniformly excluded: no fields, initializers, sibling methods, invoked source, comments outside the declaration, outcomes, or verification questions.",
+  "policy_status": "proposal_for_protocol_freeze",
+  "retained_import_count": 15,
+  "schema_version": "tse-java-context-v1",
+  "snippet_id": "tse-046",
+  "source_file_import_count": 15
+}

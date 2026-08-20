@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/backtranslation/regeneration-input-v1.schema.json",
+  "title": "Directions-to-code request data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "target_declaration",
+    "type_context",
+    "directions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "regeneration-input-v1"
+    },
+    "target_declaration": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "type_context": {
+      "$ref": "type-context-v1.schema.json"
+    },
+    "directions": {
+      "$ref": "directions-v1.schema.json"
+    }
+  }
+}

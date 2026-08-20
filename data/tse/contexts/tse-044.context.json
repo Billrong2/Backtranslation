@@ -1,0 +1,31 @@
+{
+  "dataset_signature": "org.totschnig.myexpenses.util.LazyFontSelector.processChar(char[],int,java.lang.StringBuffer)",
+  "enclosing_type_depth": 0,
+  "enclosing_type_header": "public class LazyFontSelector {",
+  "import_selection": "all_source_file_imports_in_source_order",
+  "imports": [
+    "import java.io.File;",
+    "import java.io.IOException;",
+    "import java.util.ArrayList;",
+    "import android.util.Log;",
+    "import android.util.SparseArray;",
+    "import com.itextpdf.text.BaseColor;",
+    "import com.itextpdf.text.Chunk;",
+    "import com.itextpdf.text.DocumentException;",
+    "import com.itextpdf.text.Font;",
+    "import com.itextpdf.text.Phrase;",
+    "import com.itextpdf.text.Utilities;",
+    "import com.itextpdf.text.error_messages.MessageLocalization;",
+    "import com.itextpdf.text.pdf.BaseFont;"
+  ],
+  "member_stub_selection": "uniformly_excluded_no_symbol_resolution_claim",
+  "method_source": "snippets/tse-044.java",
+  "method_source_sha256": "853fd0651e2b73e73cf043a670b18ab8d442c7507fb5abc6634d3cf7fa46ae2a",
+  "package_declaration": "package org.totschnig.myexpenses.util;",
+  "policy": "Exact package declaration; every exact source-file import in source order; the exact enclosing type header through its opening brace; and the separately stored exact selected declaration/body. Member stubs are uniformly excluded: no fields, initializers, sibling methods, invoked source, comments outside the declaration, outcomes, or verification questions.",
+  "policy_status": "proposal_for_protocol_freeze",
+  "retained_import_count": 13,
+  "schema_version": "tse-java-context-v1",
+  "snippet_id": "tse-044",
+  "source_file_import_count": 13
+}

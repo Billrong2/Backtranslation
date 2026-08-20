@@ -1,0 +1,58 @@
+# Python environments and caches
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+.secrets/
+feature_imp_key.txt
+*api_key*
+*credentials*
+
+# Downloaded datasets, private outcomes, models, and raw run artifacts
+.cache/
+models/
+artifacts/*
+!artifacts/README.md
+!artifacts/complete-case-120/
+!artifacts/complete-case-120/**
+!artifacts/codeup-human-agent/
+artifacts/codeup-human-agent/*
+!artifacts/codeup-human-agent/generation-summary.json
+!artifacts/codeup-human-agent/results.json
+!artifacts/codeup-human-agent/intent-analysis/
+artifacts/codeup-human-agent/intent-analysis/*
+!artifacts/codeup-human-agent/intent-analysis/summary.json
+
+# Runtime logs and local databases
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.stdout
+*.stderr
+*.lock
+
+# Media, editor, OS, and LaTeX build output
+*.mkv
+*.mp4
+*.wav
+.DS_Store
+.idea/
+.vscode/
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
+*.pdf

@@ -1,0 +1,24 @@
+{
+  "dataset_signature": "org.apache.phoenix.expression.ModulusExpression.evaluate(org.apache.phoenix.schema.tuple.Tuple,org.apache.hadoop.hbase.io.ImmutableBytesWritable)",
+  "enclosing_type_depth": 0,
+  "enclosing_type_header": "public class ModulusExpression extends ArithmeticExpression {",
+  "import_selection": "all_source_file_imports_in_source_order",
+  "imports": [
+    "import java.util.List;",
+    "import org.apache.hadoop.hbase.io.ImmutableBytesWritable;",
+    "import org.apache.phoenix.expression.visitor.ExpressionVisitor;",
+    "import org.apache.phoenix.schema.tuple.Tuple;",
+    "import org.apache.phoenix.schema.types.PDataType;",
+    "import org.apache.phoenix.schema.types.PLong;"
+  ],
+  "member_stub_selection": "uniformly_excluded_no_symbol_resolution_claim",
+  "method_source": "snippets/tse-022.java",
+  "method_source_sha256": "f56f1c17a296823649277519b04fa0f9b1ccd38645f829918ceeb47cb5a9703c",
+  "package_declaration": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.apache.phoenix.expression;",
+  "policy": "Exact package declaration; every exact source-file import in source order; the exact enclosing type header through its opening brace; and the separately stored exact selected declaration/body. Member stubs are uniformly excluded: no fields, initializers, sibling methods, invoked source, comments outside the declaration, outcomes, or verification questions.",
+  "policy_status": "proposal_for_protocol_freeze",
+  "retained_import_count": 6,
+  "schema_version": "tse-java-context-v1",
+  "snippet_id": "tse-022",
+  "source_file_import_count": 6
+}
