@@ -29,6 +29,9 @@ artifacts/*
 artifacts/codeup-human-agent/*
 !artifacts/codeup-human-agent/generation-summary.json
 !artifacts/codeup-human-agent/results.json
+!artifacts/codeup-human-agent/before-after-results.json
+!artifacts/codeup-human-agent/before-after-generation-summary.json
+!artifacts/codeup-human-agent/before-after-intent-summary.json
 !artifacts/codeup-human-agent/intent-analysis/
 artifacts/codeup-human-agent/intent-analysis/*
 !artifacts/codeup-human-agent/intent-analysis/summary.json

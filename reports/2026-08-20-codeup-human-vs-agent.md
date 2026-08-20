@@ -1,88 +1,70 @@
-# CODE-UP Human-versus-Agent Revision and Round-Trip Study
+# CODE-UP Before/After Revision and Round-Trip Study
 
-**Report date:** August 20, 2026  
-**Paired cases:** 915  
-**Human arm:** recorded same-file revision after the review request  
-**Agent arm:** independent revision from the same review request and pre-review context  
-**Generation/backtranslation:** `deepseek-v4-flash` through separate Codex instances  
-**Intent extraction/judging:** `deepseek-v4-pro` through separate Codex instances
+**Report date:** August 20, 2026<br>
+**Aligned paired cases:** 503<br>
+**Backtranslation model:** `deepseek-v4-flash` through separate Codex instances<br>
+**Code-derived intent extraction/judging:** `deepseek-v4-pro` through separate Codex instances
 
-## Overall paired results
+## Study design
 
-AUC treats human code as the positive class. Separation is `max(AUC, 1-AUC)`; the direction column shows which arm tends to have larger values.
+For each understandability-related CODE-UP revision, the old and new fragments come from the two sides of the same human-authored revision diff. The old human code is the **Before revision** arm; the new human code is the **Human revision** arm. The **Agent revision** arm is the retained independent model revision for the same review event, generated from CODE-UP's review-target context; that context is not generally byte-identical to the aligned old diff fragment. Each arm is separately translated from code to natural-language directions and back to code. The review comment is used to identify the revision but is not used as the intent reference. Instead, Pro extracts intent independently from each source fragment and judges only that source against its own reconstruction.
 
-| Measure | Human mean | Agent mean | Human − agent | Wilcoxon p | AUC | Separation | Higher |
-|---|---:|---:|---:|---:|---:|---:|---|
-| Round-trip CodeBERT similarity | 0.9950 | 0.9946 | 0.0004 | 0.0067 | 0.4705 | 0.5295 | agent |
-| Round-trip BLEU | 0.8820 | 0.8804 | 0.0016 | 0.5927 | 0.4912 | 0.5088 | agent |
-| Round-trip ROUGE-L F1 | 0.9225 | 0.9150 | 0.0075 | 0.5536 | 0.4988 | 0.5012 | agent |
-| Review-intent fidelity, original | 0.2958 | 0.3331 | -0.0373 | 0.0077 | 0.4675 | 0.5325 | agent |
-| Review-intent fidelity, round-trip | 0.2817 | 0.3246 | -0.0429 | 0.0023 | 0.4646 | 0.5354 | agent |
-| Number of code intents, original | 4.4481 | 4.5617 | -0.1137 | 0.4325 | 0.5124 | 0.5124 | human |
-| Cyclomatic-complexity proxy, original | 2.4929 | 3.0492 | -0.5563 | 1.63e-10 | 0.4432 | 0.5568 | agent |
-| Code-smell/antipattern count, original | 0.7311 | 1.1508 | -0.4197 | 2.06e-27 | 0.3895 | 0.6105 | agent |
-| Token count, original | 112.9563 | 195.1891 | -82.2328 | 2.58e-27 | 0.3886 | 0.6114 | agent |
-| Pre-review→revision CodeBERT similarity | 0.9632 | 0.9935 | -0.0303 | 5.73e-120 | 0.0959 | 0.9041 | agent |
-| Pre-review→revision BLEU | 0.2902 | 0.8219 | -0.5317 | 9.89e-144 | 0.0677 | 0.9323 | agent |
-| Pre-review→revision ROUGE-L F1 | 0.4360 | 0.8904 | -0.4544 | 8.29e-144 | 0.0563 | 0.9437 | agent |
-| Intent-count change after round trip | -0.1803 | -0.1989 | 0.0186 | 0.5968 | 0.4942 | 0.5058 | agent |
-| CCN-proxy change after round trip | -0.0481 | -0.0929 | 0.0448 | 0.4726 | 0.4999 | 0.5001 | agent |
-| Smell-count change after round trip | 0.0874 | 0.0940 | -0.0066 | 0.6093 | 0.4934 | 0.5066 | agent |
-| Intent-fidelity loss after round trip | 0.0141 | 0.0085 | 0.0055 | 0.5472 | 0.5040 | 0.5040 | human |
-| Strict-preservation loss after round trip | 0.0270 | 0.0171 | 0.0100 | 0.6875 | 0.5078 | 0.5078 | human |
-| Changed-intent-rate change after round trip | 0.0009 | 0.0194 | -0.0185 | 0.2457 | 0.4942 | 0.5058 | agent |
-| Lost-intent-rate change after round trip | -0.0279 | -0.0364 | 0.0085 | 0.4812 | 0.5037 | 0.5037 | human |
-| Added-intent-rate change after round trip | 0.0095 | 0.0031 | 0.0064 | 0.7592 | 0.5071 | 0.5071 | human |
+## Overall statistics
 
-## Direct similarity of human and agent revisions
+The largest numeric arm mean in each row is bolded; bold does not imply that a larger value is desirable for complexity, smell, size, or change measures.
 
-These values compare the independently written human and agent revisions to each other, not either arm to its reconstruction.
+- **Measure:** the code similarity, code-derived intent, size, complexity, smell, or round-trip-change statistic.
+- **Before revision:** mean for the human-authored old side of the aligned revision diff.
+- **Human revision:** mean for the human-authored new side of that same diff.
+- **Agent revision:** mean for the retained model revision from the same CODE-UP review event; its review-target input scope usually differs from the exact old diff fragment.
+- **Wilcoxon p:** paired two-sided Wilcoxon signed-rank p-value for Before revision versus Human revision; the Agent revision is not part of this column.
+- **AUC:** descriptive one-variable AUC for separating Before revision (positive class) from Human revision. Values near 0.5 mean little separation; direction is visible from the means.
+- **Separation:** `max(AUC, 1-AUC)`, an unsigned effect-separation summary from 0.5 to 1.0.
+- **Code-smell pair:** in the `(A, B)` row, `A` is the mean smell count in the source fragment and `B` is the mean smell count after round-trip reconstruction. Its Wilcoxon, AUC, and separation values compare the per-case changes `B - A` between arms.
+- **Cyclomatic-complexity pair:** in the `(A, B)` row, `A` is the mean source CCN proxy and `B` is the mean reconstructed CCN proxy. Its Wilcoxon, AUC, and separation values compare the per-case changes `B - A` between arms.
 
-| Similarity | Mean | Median | 95% CI of mean |
+| Measure | Before revision | Human revision | Agent revision | Wilcoxon p | AUC | Separation |
+|---|---:|---:|---:|---:|---:|---:|
+| Round-trip CodeBERT similarity | 0.9905 | 0.9953 | **0.9955** | 3.41e-15 | 0.3503 | 0.6497 |
+| Round-trip BLEU | 0.7505 | **0.8834** | 0.8783 | 1.14e-30 | 0.3020 | 0.6980 |
+| Round-trip ROUGE-L F1 | 0.8361 | **0.9229** | 0.9147 | 7.36e-26 | 0.3143 | 0.6857 |
+| Code-derived intent fidelity | 0.9156 | **0.9609** | 0.9561 | 3.01e-12 | 0.3752 | 0.6248 |
+| Strict intent-preservation rate | 0.8735 | **0.9479** | 0.9380 | 2.16e-12 | 0.3875 | 0.6125 |
+| Number of source-code intents | 11.1948 | 10.7356 | **13.7296** | 0.4090 | 0.5151 | 0.5151 |
+| Intent-count change after round trip | -0.4453 | -0.3082 | **-0.2903** | 0.2812 | 0.5063 | 0.5063 |
+| Cyclomatic-complexity proxy (source, round-trip) | (2.8111, 2.6640) | (2.4334, 2.3917) | (3.0179, 2.9185) | 0.2945 | 0.4828 | 0.5172 |
+| Code-smell count (source, round-trip) | (0.7256, 0.7873) | (0.6899, 0.7734) | (1.0994, 1.2167) | 0.3953 | 0.4912 | 0.5088 |
+
+## Human-versus-agent paired contrasts
+
+This secondary table keeps the Human revision versus Agent revision inferential comparison separate from the main before-versus-after question. Here AUC treats Human revision as the positive class. Because the retained agent input uses CODE-UP's review-target scope rather than the exact old diff side, this is a same-event comparison with a known granularity limitation.
+Bold marks a major difference under the report's display rule: `p < 0.05` and separation at least `0.55`.
+
+| Measure | Wilcoxon p | AUC | Separation |
 |---|---:|---:|---:|
-| CodeBERT | 0.9640 | 0.9762 | [0.9616, 0.9664] |
-| BLEU | 0.3206 | 0.2653 | [0.3050, 0.3362] |
-| ROUGE-1 F1 | 0.5126 | 0.5292 | [0.4971, 0.5281] |
-| ROUGE-2 F1 | 0.4400 | 0.4211 | [0.4241, 0.4559] |
-| ROUGE-L F1 | 0.4535 | 0.4359 | [0.4378, 0.4691] |
+| Round-trip CodeBERT similarity | 0.0275 | 0.4742 | 0.5258 |
+| Round-trip BLEU | 0.8244 | 0.4962 | 0.5038 |
+| Round-trip ROUGE-L F1 | 0.6279 | 0.5026 | 0.5026 |
+| Code-derived intent fidelity | 0.2200 | 0.5347 | 0.5347 |
+| Strict intent-preservation rate | 0.3603 | 0.5217 | 0.5217 |
+| **Number of source-code intents** | **3.70e-10** | **0.4130** | **0.5870** |
+| Intent-count change after round trip | 0.3426 | 0.4862 | 0.5138 |
+| Cyclomatic-complexity proxy (source, round-trip) | 0.6132 | 0.5012 | 0.5012 |
+| Code-smell count (source, round-trip) | 0.1623 | 0.4809 | 0.5191 |
 
 ## Main findings
 
-- **Round-trip reconstruction is highly similar for both arms.** Mean CodeBERT is 0.9950 for human code and 0.9946 for agent code; mean BLEU is 0.8820 and 0.8804, respectively.
-- **The round trip does not produce large intent drift in this cohort.** Mean intent-fidelity loss is 0.0141 for human revisions and 0.0085 for agent revisions.
-- **Absolute review-intent fidelity is low in both extracted code fragments.** Before round trip it is 0.2958 for human and 0.3331 for agent revisions. This is distinct from round-trip drift and should not be described as intent lost by backtranslation.
-- **Agent revisions are longer and trigger more structural heuristics.** Mean token count is 112.9563 versus 195.1891; mean CCN proxy is 2.4929 versus 3.0492; and mean smell/antipattern count is 0.7311 versus 1.1508.
-- **Agent revisions stay much closer to the pre-review fragment.** Mean pre-review-to-revision CodeBERT is 0.9632 for human revisions and 0.9935 for agent revisions. This may reflect conservative under-editing as well as fragment/extraction differences, so it is not automatically evidence of better revisions.
+- Mean round-trip CodeBERT similarity is 0.9905 before revision, 0.9953 after human revision, and 0.9955 after agent revision.
+- Mean code-derived intent fidelity is 0.9156 before revision, 0.9609 after human revision, and 0.9561 after agent revision.
+- Mean strict intent preservation is 0.8735 before revision, 0.9479 after human revision, and 0.9380 after agent revision.
+- The aligned human revision lowers the mean CCN proxy from 2.8111 to 2.4334.
+- CodeBERT, BLEU, and ROUGE measure code-to-code resemblance. Intent fidelity is a separate Pro judgment derived only from each source fragment and its reconstruction, so high lexical similarity is not treated as proof of intent preservation.
 
-## Interpretation
+## Interpretation boundaries
 
-CodeBERT, BLEU, and ROUGE quantify textual/representation similarity between each original revision and its reconstruction. The Pro intent measures separately test whether the pre-revision review request remains implemented before and after round-trip translation. A high code-similarity score therefore does not, by itself, prove intent preservation.
-
-## Review metadata retained
-
-Each machine-readable case row retains PR-open-to-review hours, review-to-next-commit hours when available, inline-review comment count, distinct inline reviewers, commit/force-push count, target-thread replies, merge-record presence, and sparse CODE-UP RQ2–RQ6 labels.
-
-| Metadata field | Available | Missing | Mean | Median |
-|---|---:|---:|---:|---:|
-| commit and force push count | 915 | 0 | 15.5607 | 9.0000 |
-| distinct inline reviewer count | 915 | 0 | 1.7410 | 1.0000 |
-| hours pr open to target review | 915 | 0 | 264.8231 | 48.0778 |
-| hours target review to next commit | 915 | 0 | 66.1442 | 8.0792 |
-| inline review comment count | 915 | 0 | 14.8699 | 8.0000 |
-| merge commit recorded | 915 | 0 | 0.4350 | 0.0000 |
-| target review reply count | 915 | 0 | 0.8546 | 1.0000 |
-
-Sparse CODE-UP RQ2/RQ3 labels are available for 188 cases; most RQ4–RQ6 fields are available for 176 cases.
-
-## Definitions and limitations
-
-- Review comments are pre-revision specifications, not issue reports that predate the original code.
-- CCN is a fragment-level token proxy because many CODE-UP scopes are incomplete Java fragments.
-- Smells are transparent uniform heuristics, not whole-project PMD/SonarQube executions.
-- The 915 cases exclude 285 sampled reviews without a recoverable nonempty same-file revision.
-- The agent never receives the recorded human revision.
-- Both arms use identical backtranslation prompts, similarity implementations, intent judge, CCN proxy, and smell rules.
-- Human revisions aggregate recoverable same-file changed fragments, whereas the agent responds to the target review fragment; this granularity difference can affect revision-from-pre-review similarity.
-- The p-values are exploratory and unadjusted across metrics. AUC is a descriptive one-variable separation statistic, not held-out predictive performance.
-- Full case-level values and provenance are in `artifacts/codeup-human-agent/results.json`.
-
+- Before revision versus Human revision is an exact aligned comparison over the same 503 diff chunks.
+- Before revision and Human revision are both human-authored. Agent revision is model-authored.
+- Only 1 of 503 retained agent input contexts is byte-identical to the aligned Before revision fragment; the Agent column is therefore secondary, not part of the core before-versus-after test.
+- The review comment does not define the measured intent and is never shown to the intent extractor/judge.
+- Results measure conditional preservation through this specific Flash backtranslation and Pro intent-analysis procedure, not functional equivalence established by compilation or tests.
+- The p-values are exploratory and unadjusted across metrics. AUC is descriptive separation, not held-out predictive performance.

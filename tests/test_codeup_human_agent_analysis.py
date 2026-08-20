@@ -154,9 +154,16 @@ def test_markdown_and_latex_reports_render_table(tmp_path: Path) -> None:
         + b"\n"
     )
     markdown, latex = build_reports(output, tmp_path / "reports")
-    assert "Overall paired results" in markdown.read_text()
-    assert "Round-trip CodeBERT similarity" in markdown.read_text()
-    assert "\\begin{longtable}" in latex.read_text()
+    markdown_text = markdown.read_text()
+    latex_text = latex.read_text()
+    assert "Overall paired results" in markdown_text
+    assert "Round-trip CodeBERT similarity" in markdown_text
+    assert "Human − agent" not in markdown_text
+    assert "| Higher |" not in markdown_text
+    assert "**0.8000** | 0.7000" in markdown_text
+    assert "\\begin{longtable}" in latex_text
+    assert "\\textbf{0.8000} & 0.7000" in latex_text
+    assert "& $\\Delta$ &" not in latex_text
 
 
 def test_build_results_wires_paired_arms_and_gpu_label(

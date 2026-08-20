@@ -812,17 +812,25 @@ def build_reports(output_root: Path, report_root: Path) -> tuple[Path, Path]:
         "",
         "## Overall paired results",
         "",
-        "AUC treats human code as the positive class. Separation is `max(AUC, 1-AUC)`; the direction column shows which arm tends to have larger values.",
+        "AUC treats human code as the positive class. Separation is `max(AUC, 1-AUC)`. The larger arm mean in each row is bolded.",
         "",
-        "| Measure | Human mean | Agent mean | Human − agent | Wilcoxon p | AUC | Separation | Higher |",
-        "|---|---:|---:|---:|---:|---:|---:|---|",
+        "| Measure | Human mean | Agent mean | Wilcoxon p | AUC | Separation |",
+        "|---|---:|---:|---:|---:|---:|",
     ]
     for key in labels:
         item = comparisons[key]
+        human_mean = float(item["human"]["mean"])
+        agent_mean = float(item["agent"]["mean"])
+        human_cell = _fmt(human_mean)
+        agent_cell = _fmt(agent_mean)
+        if human_mean > agent_mean:
+            human_cell = f"**{human_cell}**"
+        elif agent_mean > human_mean:
+            agent_cell = f"**{agent_cell}**"
         header.append(
-            f"| {labels[key]} | {_fmt(item['human']['mean'])} | {_fmt(item['agent']['mean'])} | "
-            f"{_fmt(item['paired_difference_human_minus_agent']['mean'])} | {_fmt_p(item['paired_wilcoxon_p_value'])} | "
-            f"{_fmt(item['roc_auc_human_as_positive'])} | {_fmt(item['roc_auc_separation'])} | {item['direction_of_higher_values']} |"
+            f"| {labels[key]} | {human_cell} | {agent_cell} | "
+            f"{_fmt_p(item['paired_wilcoxon_p_value'])} | "
+            f"{_fmt(item['roc_auc_human_as_positive'])} | {_fmt(item['roc_auc_separation'])} |"
         )
     header.extend(
         [
@@ -897,6 +905,14 @@ def build_reports(output_root: Path, report_root: Path) -> tuple[Path, Path]:
     latex_rows = []
     for key in labels:
         item = comparisons[key]
+        human_mean = float(item["human"]["mean"])
+        agent_mean = float(item["agent"]["mean"])
+        human_cell = _fmt(human_mean)
+        agent_cell = _fmt(agent_mean)
+        if human_mean > agent_mean:
+            human_cell = rf"\textbf{{{human_cell}}}"
+        elif agent_mean > human_mean:
+            agent_cell = rf"\textbf{{{agent_cell}}}"
         label = (
             labels[key]
             .replace("%", r"\%")
@@ -905,8 +921,8 @@ def build_reports(output_root: Path, report_root: Path) -> tuple[Path, Path]:
             .replace("→", r"$\rightarrow$")
         )
         latex_rows.append(
-            f"{label} & {_fmt(item['human']['mean'])} & {_fmt(item['agent']['mean'])} & "
-            f"{_fmt(item['paired_difference_human_minus_agent']['mean'])} & {_fmt_p(item['paired_wilcoxon_p_value'])} & "
+            f"{label} & {human_cell} & {agent_cell} & "
+            f"{_fmt_p(item['paired_wilcoxon_p_value'])} & "
             f"{_fmt(item['roc_auc_human_as_positive'])} & {_fmt(item['roc_auc_separation'])} \\\\"
         )
     latex_similarity_rows = []
@@ -931,9 +947,9 @@ We compare paired revisions for """ + f"{results['design']['cases']:,}" + r""" C
 \section{Overall paired results}
 Human is the positive class for ROC--AUC. Separation is $\max(\mathrm{AUC},1-\mathrm{AUC})$.
 \small
-\begin{longtable}{p{5.2cm}rrrrrr}
+\begin{longtable}{p{5.2cm}rrrrr}
 \toprule
-Measure & Human & Agent & $\Delta$ & $p$ & AUC & Separation \\
+Measure & Human & Agent & $p$ & AUC & Separation \\
 \midrule
 \endhead
 """ + "\n".join(latex_rows) + r"""
