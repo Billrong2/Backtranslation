@@ -51,20 +51,3 @@ Bold marks a major difference under the report's display rule: `p < 0.05` and se
 | Intent-count change after round trip | 0.3426 | 0.4862 | 0.5138 |
 | Cyclomatic-complexity proxy (source, round-trip) | 0.6132 | 0.5012 | 0.5012 |
 | Code-smell count (source, round-trip) | 0.1623 | 0.4809 | 0.5191 |
-
-## Main findings
-
-- Mean round-trip CodeBERT similarity is 0.9905 before revision, 0.9953 after human revision, and 0.9955 after agent revision.
-- Mean code-derived intent fidelity is 0.9156 before revision, 0.9609 after human revision, and 0.9561 after agent revision.
-- Mean strict intent preservation is 0.8735 before revision, 0.9479 after human revision, and 0.9380 after agent revision.
-- The aligned human revision lowers the mean CCN proxy from 2.8111 to 2.4334.
-- CodeBERT, BLEU, and ROUGE measure code-to-code resemblance. Intent fidelity is a separate Pro judgment derived only from each source fragment and its reconstruction, so high lexical similarity is not treated as proof of intent preservation.
-
-## Interpretation boundaries
-
-- Before revision versus Human revision is an exact aligned comparison over the same 503 diff chunks.
-- Before revision and Human revision are both human-authored. Agent revision is model-authored.
-- Only 1 of 503 retained agent input contexts is byte-identical to the aligned Before revision fragment; the Agent column is therefore secondary, not part of the core before-versus-after test.
-- The review comment does not define the measured intent and is never shown to the intent extractor/judge.
-- Results measure conditional preservation through this specific Flash backtranslation and Pro intent-analysis procedure, not functional equivalence established by compilation or tests.
-- The p-values are exploratory and unadjusted across metrics. AUC is descriptive separation, not held-out predictive performance.
